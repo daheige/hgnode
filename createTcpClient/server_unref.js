@@ -15,10 +15,24 @@ server.on('connection',function(socket){
         //socket端口对象可以用来写入向客户端或服务端发送的流数据
         //当流数据
         socket.write("确认数据："+data);
+        //可以用socket.write(data)发送小的文件
     });
     //监听客户端关闭
     socket.on("end",function(){
         console.log('客户端连接被关闭');
+        //当所有的客户端关闭，可以用unref()退出
+        server.unref();
+        //可以ref()继续阻止应用程序退出
+    });
+    //当socket彻底关闭后，触发socket端口对象的close事件
+    socket.on("close",function(err){
+        if(err) 
+        {
+            console.log('由于一个错误导致socket端口被关闭');
+            server.unref();
+        }
+        else
+            console.log('端口正常关闭');
     });
 });
 
