@@ -12,13 +12,14 @@ var server=net.createServer();
 server.on("connection",function(socket){
     //对socket监听data，对客户端发送信息做处理
     socket.on("data",function(data){
-        //data是缓存区中数据是一个buf，需要转化
+        //data是缓存区中数据是一个buf需要转化
         console.log(data.toString());
         console.log("已经接收到客户端%d字节数据",socket.bytesRead);
         
     });
     //将客户端发送的流写入文件中
     socket.pipe(file);
+    //客户端关闭
     socket.on("end",function(e){
         console.log("客户端连接被关闭");
     });
