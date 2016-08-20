@@ -1,4 +1,4 @@
-var http=require('http');//µ¼Èëhttp°ü
+var http=require('http');//import http
 console.log("this is server has started!");
 var server=http.createServer(function(req,res){
     res.writeHead(200,{"Content-Type":"text/html"});
