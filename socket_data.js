@@ -14,13 +14,12 @@ server.on("connection",function(socket){
         //data是缓存区中数据是一个buf，需要转化
         console.log(data.toString());
         console.log("已经接收到客户端%d字节数据",socket.bytesRead);
-        
+
     });
     socket.on("end",function(e){
         console.log("客户端连接被关闭");
     });
 });
-
 
 //监听8431端口，ip：localhost,回调函数func
 server.listen(8431,'localhost',function(){
