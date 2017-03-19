@@ -1,4 +1,0 @@
-客户端请求的方法：GET
-客户端请求的URL字符串：/test?id=12&name=zhuwei&year=3333
-客户端请求头信息：{"host":"localhost:1337","user-agent":"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20100101 Firefox/33.0","accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","accept-language":"zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3","accept-encoding":"gzip, deflate","cookie":"__utma=111872281.1840714822.1411920748.1411920748.1411920748.1; __utmz=111872281.1411920748.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)","connection":"keep-alive","cache-control":"max-age=0"}
-客户端请求用的HTTP版本为：1.1

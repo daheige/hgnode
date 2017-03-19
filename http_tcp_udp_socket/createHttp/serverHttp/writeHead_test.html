@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <script type="text/javascript">
+        //创建XHR对象函数
+        function createXhr(){
+            var xmlHttp=null;
+            //创建异步对象
+            if(window.ActiveXObject){
+                //存在就是ie内核
+            //window.alert("ie");
+                xmlHttp=new ActiveXObject("Microsoft.XMLHTTP"); 
+            }else if(window.XMLHttpRequest){
+            
+                //window.alert("ff");
+                xmlHttp=new XMLHttpRequest();
+            }
+            return xmlHttp;
+        }
+        //获取数据
+        function getData(){
+          
+            //1 创建xhr对象
+            var xhr=createXhr();
+            var url="http://localhost:1337/";
+            //2 打开连接
+            xhr.open("GET",url,true);
+            //4 接收HTTP返回的信息，回调函数处理
+            xhr.onreadystatechange=function(){
+                //响应状态码readyState=4
+                //HTTP状态码status=200
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200 || xhr.status == 0){
+                        //未发布的站点status=0
+                        //请求成功，回调函数处理
+                        document.getElementById('mess').innerHTML=xhr.responseText;
+                    }
+                }
+            }
+            //3 发送数据
+            xhr.send(null);
+        }
+    </script>
+</head>
+<body>
+	<input type="button" value="获取数据" onclick="getData()" />
+    <div id="mess">444</div>
+</body>
+</html>

@@ -1,4 +1,0 @@
-请求的URL地址字符串:/
-请求的方法：POST
-请求的数据：name=zhuwei&age=23
-请求的HTTP版本：1.1
