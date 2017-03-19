@@ -1,0 +1,35 @@
+在nodejs中处理事件的模块event，定义了一个EventEmitter类（事件分发类），所有可能触发的事件都继承了其子类的实例对象。
+比如对事件绑定事件处理程序 addListener(event,handleFuc)
+on用来对指定的事件进行监听，对同一指定多个事件监听，默认是10个，可以用setMaxListener(n)来设置
+once(event,listener) 对指定事件指定只执行一次事件处理程序（函数）
+removeListener(event,listener)移除事件监听的事件处理程序listener
+removeAllListener([event])移除所有的事件监听[event]是一个数组
+setMaxListeners(n) 最大执行事件处理程序的个数
+listeners(event)获取指定事件event的所有处理程序函数
+emit(event,arg1,arg2,...)手动指定事件分发程序
+
+在同一个时刻只处理一个毁掉函数，nodejs是单行线程。当前面的事件处理程序处理完毕后，后面的事件处理程序就进入栈中，进行处理。
+
+demo:
+const http = require('http')
+var server = http.createServer();
+//监听客户端请求request事件
+server.on('request', function(req, res) {
+    res.write('hello world');
+    res.end('请求成功')
+});
+//on可以对同一个事件绑定多个事件处理程序
+server.on('request', function(req, res) {
+    if (req.url != '/favicon.ico') console.log(req.url);
+});
+server.listen(3000, 'localhost'); //指定端口3000运行 localhost:3000
+console.log('3000 has run');
+/*
+ *运行结果
+ *页面中显示
+ *hello world请求成功
+ *在控制台中
+ *3000 has run
+/
+/daheige
+ */

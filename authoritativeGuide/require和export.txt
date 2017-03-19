@@ -1,0 +1,6 @@
+导入模块
+var http = require('http');
+
+exports将函数或者变量传递到模块外部
+比如
+exports.testVar = 12;//在外部就可以通过模块名来访问testVar这个变量

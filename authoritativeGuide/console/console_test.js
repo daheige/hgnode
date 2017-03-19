@@ -18,3 +18,17 @@ fefefe heige
 error
 { name: 'daheige', say: [Function] }
  */
+
+//统计代码执行时间
+//标签名 flag 可以使任意字符串
+var flag = "test";
+console.time(flag);
+var str = '';
+for(var i = 0;i<1000;i++){
+    str += i;
+}
+console.log(str);
+console.timeEnd(flag); //test: 0.363ms
+console.trace(); //查看当前位置的栈信息作为标注错误信息输出，追踪代码的执行
+
+console.assert(1==22,'raise an exception'); //对表达式判断，如果是false就抛出异常
