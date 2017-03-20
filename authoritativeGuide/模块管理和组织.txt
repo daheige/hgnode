@@ -1,0 +1,31 @@
+require()方法导入模块，
+1、先在当前目录查找node_modules下查找。
+2、如果查找不到，向上查找。
+3、如果还是找不到，就会到nodejs的安装目录的node_modules下查找，如果还是找不到，就会报错。
+
+
+在目录下建立一个node_modules文件，我们在下面新建hgfoo
+在里面放置index.js
+let name = "daheige";
+let age = 26;
+exports.name = name;
+exports.age = age;
+
+在外部导入包hgfoo
+let hgfoo = require('hgfoo'); //默认会去查找hgfoo/index.js
+console.log('hgfoo 模块的name '+hgfoo.name);
+
+为了更加灵活的设置主要的main
+我们在hgfoo下新建package.json 手动指定main指向index.js文件
+{
+    "name": "hgfoo",
+    "main":"./index.js"
+}
+
+nodejs中的包 说明文件package.json
+name表示包名
+description描述
+version版本号
+author作者信息
+keywords关键字用来搜索包
+dependencies依赖包，是一个关联数组

@@ -1,0 +1,49 @@
+在nodejs中，每个模块都是一个js脚本。
+导入模块采用require()方法
+比如 const http = require('http');
+
+exports一般用来将函数及变量导出来，供外部访问。
+module.exports一般用来将模块定义一个类，然后导出。
+比如Bar.js
+function Bar(name = 'daheige',age = 27){
+    this.name = name;
+    this.age = age;
+}
+Bar.prototype.getName = function (){
+    return this.name;
+}
+Bar.prototype.setName = function(name){
+    this.name = name;
+}
+Bar.prototype.say = function(){
+    console.log('i am '+this.name+' age '+this.age);
+}
+module.exports = Bar; //将类导出
+
+foo.js
+let name = "daheige";
+let say = function(){
+    console.log('foo module');
+}
+//将变量和函数导出
+exports.name = name;
+exports.say = say;
+
+test.js 测试文件
+let foo = require(__dirname+'/foo.js');
+let Bar = require(__dirname+'/Bar.js');
+console.log(foo.name);
+foo.say();
+let person = new Bar('heige',26);
+console.log(person.getName());
+person.setName('wuxin');
+person.getName();
+person.say();
+
+/**
+ * 运行结果
+ *daheige
+foo module
+heige
+i am wuxin age 26
+ */
