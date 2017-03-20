@@ -1,0 +1,102 @@
+host 主机名，localhost代表本地
+user Mysql用户
+password 密码
+database 连接的数据库
+
+const mysql = require('mysql');
+var client = mysql.createclientection({
+    host: 'localhost',
+    user: 'root',
+    password: '1234',
+    database: 'test',
+    port: '3306'
+});
+client.clientect();
+
+说明：
+client.clientect()连接数据库
+client.query()执行SQL语句
+client.end()关闭连接。
+
+1、curd操作
+// 增加记录
+client.query('insert into test (username ,password) values ("lupeng" , "123456")');
+
+// 删除记录
+client.query('delete from test where username = "lupeng"');
+
+// 修改记录
+client.query('update test set username = "pengloo53" where username = "lupeng"');
+
+// 查询记录
+client.query("select * from test" , function selectTable(err, rows, fields){
+ if (err){
+  throw err;
+ }
+ if (rows){
+  for(var i = 0 ; i < rows.length ; i++){
+   console.log("%d\t%s\t%s", rows[i].id,rows[i].username,rows[i].password);
+  }
+ }
+});
+
+2、连接池使用
+var mysql = require('mysql');
+var pool = mysql.createPool({
+  host: 'localhost',
+  user: 'nodejs',
+  password: 'nodejs',
+  database: 'nodejs',
+  port: 3306
+});
+
+var selectSQL = 'select * from t_user limit 10';
+
+pool.getConnection(function (err, conn) {
+  if (err) console.log("POOL ==> " + err);
+
+  conn.query(selectSQL,function(err,rows){
+    if (err) console.log(err);
+    console.log("SELECT ==> ");
+    for (var i in rows) {
+      console.log(rows[i]);
+    }
+    conn.release();
+  });
+});
+
+3、断线重连接
+var mysql = require('mysql');
+var conn;
+function handleError () {
+  conn = mysql.createConnection({
+    host: 'localhost',
+    user: 'nodejs',
+    password: 'nodejs',
+    database: 'nodejs',
+    port: 3306
+  });
+
+  //连接错误，2秒重试
+  conn.connect(function (err) {
+    if (err) {
+      console.log('error when connecting to db:', err);
+      setTimeout(handleError , 2000);
+    }
+  });
+
+  conn.on('error', function (err) {
+    console.log('db error', err);
+    // 如果是连接断开，自动重新连接
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      handleError();
+    } else {
+      throw err;
+    }
+  });
+}
+handleError();
+
+
+
+

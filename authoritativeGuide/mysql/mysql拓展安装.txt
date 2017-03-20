@@ -1,0 +1,18 @@
+npm -g install mysql
+
+使用方式
+const mysql = require('mysql'); //这里的mysql在运行时找不到该模块
+解决方法
+方法1：在目录中创建一个package.json文件，把mysql依赖加进去，然后执行npm install
+package.json内容如下
+{
+    "name": "mysqltest",
+    "description": "test project",
+    "version": "0.0.1",
+    "private": true,
+    "devDependencies": {
+        "mysql": "~2.13.0"
+    }
+}
+方法2：将mysql整个模块复制到项目目录中
+导入模块方式：const mysql = require('./mysql');
