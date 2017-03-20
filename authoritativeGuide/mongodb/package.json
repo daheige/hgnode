@@ -1,0 +1,15 @@
+{
+    "name": "mongodb",
+    "version": "1.0.0",
+    "description": "mongodb",
+    "main": "test.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "daheige",
+    "license": "ISC",
+    "private": true,
+    "devDependencies": {
+        "mongodb": "~2.2.25"
+    }
+}
