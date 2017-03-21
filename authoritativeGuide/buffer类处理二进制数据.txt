@@ -1,0 +1,13 @@
+在nodejs中定义了一个buffer类来存放二进制数据到缓存区。在处理tcp文件流需要是二进制数据。
+Buffer类是一个可以在任何模块中被利用的全局类。
+创建buffer的三种方式
+new Buffer(size) //size表示缓存区的大小，单位字节
+new Buffer(arr) //arr是一个数组，将数组放入缓存区
+new Buffer(str,encoding) //str初始化缓存区，编码是encoding 主要有utf8等
+
+字符串长度和buffer的长度
+字符串取得是字符串的个数，而buffer取得是当前缓存区的长度，缓存区的字节数大小。
+
+Buffer的concat将两个缓存区的内容进行拼接 let n_buf = Buffer.concat([buf,s_buf]).toString();
+
+
