@@ -11,3 +11,4 @@ var server = http.createServer(function(req,res) { //接受两个参数： req�
 
 //监听客户端 端口1337
 server.listen(1337, 'localhost');
+console.log('1337 has run');
