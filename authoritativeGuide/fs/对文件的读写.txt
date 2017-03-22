@@ -1,0 +1,20 @@
+1、读写
+fs.readFile(__dirname+'/a.txt',{flag:'r',encoding:'utf8'},function(err,data){
+    //第二个对象参数可以省略
+    if(err) throw err;
+    console.log(data.toString()); //将缓存区的buffer对象转换为字符串
+});
+
+fs.writeFile(__dirname + '/hg.txt',{flag:'w',mode:0644,encoding:'utf8'},function(err){
+    //__dirname当前目录名，后面不带反斜杠/
+    if(err) console.log('写入文件失败');
+    console.log('ok');
+});
+
+fs.appenFile(filename,data,opt_obj,callback) 追加内容到文件中
+
+2、从指定位置读写文件
+从指定位置写入文件，先要打开文件
+fs.open(file,flags,mode,callback)
+fs.close(fd,callback) 关闭文件句柄
+
