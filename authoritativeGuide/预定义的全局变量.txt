@@ -1,6 +1,6 @@
-__filename��ǰ�ļ�������·����
-__dirname��ǰģ���ļ����ڵ�Ŀ¼�ľ��Ե�ַ
+__filename当前文件的完整路径名
+__dirname当前模块文件所在的目录的绝对地址
 
-����:�½�app.js
-console.log(__filename); //��ǰ�ļ��ľ���·��
-console.log(__dirname);//��ǰ�ļ�����Ŀ¼�ľ���·����
+比如:新建app.js
+console.log(__filename); //当前文件的绝对路径
+console.log(__dirname);//当前文件所在目录的绝对路径名
