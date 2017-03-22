@@ -1,0 +1,32 @@
+fs模块中，用stat或lstat查看文件或者目录信息
+
+const fs = require('fs');
+fs.stat(__dirname,function(err,stats){
+    if(err) throw err;
+    console.log(stats)
+});
+
+//检查目录或文件是否存在
+fs.exists(__dirname+'/a.txt',function(flag){
+    console.log(__dirname);
+    if(flag) console.log("文件存在");
+    else
+        console.log("文件不存在");
+});
+
+//获取文件的绝对路径
+fs.realpath('./a.txt',function(err,path){
+    console.log(path)
+});
+
+// fs.utimes(path,atime,mtime,callback) //修改文件访问时间和修改时间
+//fs.chmod(path,mode,callback) //修改文件或目录权限
+fs.fchmod(path,mode,callback) //对打开的文件修改权限
+
+fs.rename(oldpath,newpath) //重命名文件
+fs.link(srcpath,dstpath,callback) 创建链接
+
+fs.unlink(path,callback) 删除硬链接，相当于删除文件
+fs.truncate(filename,len,callback) 对文件截取
+fs.rmdir(path,callback) 删除空目录
+fs.watchFile(filename,opt_obj,listener) //监听文件 callback回调函数接收curr修改后的文件信息，prev修改前的文件信息

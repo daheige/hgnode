@@ -1,0 +1,2 @@
+创建目录 fs.mkdir(path,mode,callback)
+读取目录 fs.readdir(path,callback) 回调函数 function(err,files){} //files表示所有的文件名
