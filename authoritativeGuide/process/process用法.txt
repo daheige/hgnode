@@ -1,0 +1,27 @@
+> process.arch  //系统位数
+'x64'
+> process.platform    //操作系统平台
+'win32'
+> process.r
+process.removeAllListeners  process.removeListener
+
+process.reallyExit          process.release
+
+> process.rss
+undefined
+> process.memoryUsage() //返回当前进程内存情况
+{ rss: 20172800, 常驻内存大小
+  heapTotal: 7376896, 总的内存大小
+  heapUsed: 5110664,使用的内存
+  external: 8810 }
+> process.ar
+process.arch   process.argv   process.argv0
+
+> process.arg
+process.argv   process.argv0
+
+> process.argv 接受命令行的参数
+
+process.exit()退出程序
+
+
