@@ -33,6 +33,13 @@ $ pm2 startup 产生 init 脚本 保持进程活着
 $ pm2 web 运行健壮的 computer API endpoint (http://localhost:9615)
 $ pm2 delete 0 杀死指定的进程
 $ pm2 delete all 杀死全部进程
+$ pm2 status 查看进程状态
+$ pm2 logs mywork 查看mywork日志
+$ pm2 logs --lines 10 查看10行日志
+$ pm2 id mywork 查看mywork进程id
+$ pm2 restart mywork 重启mywork进程
+$ pm2 kill 杀死所有进程
+$ pm2 desc mywork 查看进程描述
 
 运行进程的不同方式：
 $ pm2 start app.js -i max 根据有效CPU数目启动最大进程数目
