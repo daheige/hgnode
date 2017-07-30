@@ -54,7 +54,7 @@ $ pm2 start app.js -i max -e err.log -o out.log 启动 并 生成一个配置文
   "apps": [
     {
       "name": "mywork",
-      "cwd": "/usr/local/nodejs",
+      "cwd": "/web/mynode",
       "script": "./bin/www",
       "log_date_format": "YYYY-MM-DD HH:mm Z",
       "error_file": "/data/pm2/logs/mywork.log",
