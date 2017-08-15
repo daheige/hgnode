@@ -1,3 +1,4 @@
+```
 /**
  * @author:daheige
  * @git:daheige
@@ -12,6 +13,22 @@
  * //redisObj.getVal('username');
  * var redisProxy = redisObj.getProxy();
  * redisProxy.set('strname','heige'); //其实就是this.client
+ * 获取getVal
+ * var redisHandler = require('./redisHandler');
+    var co = require('co');
+    var redisObj = redisHandler();
+    // redisObj.setBylock('user',{x:1,y:2});
+    co(function* (){
+        var obj = yield redisObj.getByLock('user');
+        console.log(obj);
+        console.log(1);
+    });
+
+    redisObj.getByLock('user').then(function(res){
+        console.log(res);
+    },function(err){
+        console.log(err);
+    })
  * 常见用法
  *  this.client.set("string key", "string val", function (err, reply){});
  *  this.client.hset("hash key", "hashtest 1", "some value", redis.print);
@@ -60,11 +77,11 @@ class redisHandler { //采用单例模式进行redis连接
             return redisHandler.instance;
         }
 
-        if(typeof redis_config == 'undefined'){
+        if (typeof redis_config == 'undefined') {
             redis_config = {
-                port : '6379',
-                host : '127.0.0.1',
-                options : {}
+                port: '6379',
+                host: '127.0.0.1',
+                options: {}
             };
         }
         this.port = redis_config.port;
@@ -98,50 +115,57 @@ class redisHandler { //采用单例模式进行redis连接
         let r_exp = expire + 100;
         let c_exp = Math.floor((new Date()).getTime() / 1000) + expire;
         let arg = JSON.stringify({ data: value, expire: c_exp });
-        this.client.set(key,arg);
+        this.client.set(key, arg);
         this.client.del(key + '.lock');
     }
-    //获取redis的值，自动格式化为对象
-    // getBylock(key) {
-    //     let sth = this.client.get(key);
-    //     return sth;
-    //     if (sth === false || sth == null) {
-    //         return {};
-    //     } else {
-    //         sth = JSON.parse(sth);
-    //         if (typeof sth.expire == 'undefined' || Math.floor(sth.expire) <= (new Date()).getTime() / 1000) {
-    //             let lock = this.client.incr(key + '.lock',this.printFn);
-    //             if (lock == 1) {
-    //                 return {};
-    //             }
-    //             return typeof sth.data != 'undefined' ? sth.data : sth;
-    //         } else {
-    //             return sth.data;
-    //         }
-    //     }
-
-    // }
-
-    setEx(key, val, time = 300,fn) {
-        this.client.set(key, val, 'EX', time);
-        if(typeof fn == 'function') fn();
+    //获取redis的值，自动格式化为对象，通过Promise的方式返回获取的结果
+    getByLock(key) {
+        var _this = this;
+        return new Promise(function(resolve, reject) {
+            _this.client.get(key, function(err, res) {
+                if (err) return reject(false);
+                if (res === false || res == null) {
+                    return resolve({});
+                } else {
+                    res = JSON.parse(res);
+                    if (typeof res.expire == 'undefined' || Math.floor(res.expire) <= (new Date()).getTime() / 1000) {
+                        let lock = _this.client.incr(key + '.lock', _this.printFn);
+                        if (lock == 1) {
+                            return resolve({});
+                        }
+                        return resolve(typeof res.data != 'undefined' ? res.data : res);
+                    } else {
+                        return resolve(res.data);
+                    }
+                }
+            });
+        });
     }
 
-    setVal(key,val,fn){
+    setEx(key, val, time = 300, fn) {
+        this.client.set(key, val, 'EX', time);
+        if (typeof fn == 'function') fn();
+    }
+
+    setVal(key, val, fn) {
         this.client.set(key, val, fn || this.printFn);
     }
 
-    // getVal(key,fn){
-    //     this.client.get(key, function (err, value){
-    //         if (err) return false;
-    //         if(typeof fn == 'function') fn();
-    //         return value ? value : false;
-    //     })
-    // }
+    getVal(key, fn) { //通过Promise的方式返回获取的结果
+        var _this = this;
+        return new Promise(function(resolve, reject) {
+            _this.client.get(key, function(err, value) {
+                if (err) return reject(false);
 
-    getProxy(){ //提供redis操作的句柄client，可以直接调用redis的命名执行操作
+                if (typeof fn == 'function') fn();
+                return resolve(value ? value : false);
+            });
+        });
+    }
+
+    getProxy() { //提供redis操作的句柄client，可以直接调用redis的命名执行操作
         return this.client;
     }
 }
-
 module.exports = redisHandler.getInstance;
+```
