@@ -1,4 +1,3 @@
-```
 /**
  * @author:daheige
  * @git:daheige
@@ -168,4 +167,3 @@ class redisHandler { //采用单例模式进行redis连接
     }
 }
 module.exports = redisHandler.getInstance;
-```
