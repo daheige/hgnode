@@ -4,6 +4,6 @@
     "version": "0.0.1",
     "private": true,
     "devDependencies": {
-        "mysql": "~2.13.0"
+        "mysql": "~2.18.1"
     }
 }
